@@ -1,25 +1,32 @@
 const path = require('path');
-const normalizedPath = path.join(__dirname);
-const SKIP_FILES = [ 'index.js']; //file to skip
-const EXT_FILTER = ['.js']; //file extensions to handle (empty array means all files)
+
 
 
 module.exports = {
-  requireAllFromDir(dirPath) {
+  /**
+   * 
+   * @param {String} dirPath 
+   * @param {Object} options 
+   * @param {Array} options.skipFiles files to skip
+   * @param {Array} options.extFilter file extensions to handle (empty array means all files)
+   */
+  requireAllFromDir(dirPath, options) {
+
+    const { skipFiles = [], extFilter = [] } = options;
 
     const filesToExport = {};
 
     require('fs').readdirSync(dirPath).forEach((fileFullName) => {
       
-      if(!SKIP_FILES.includes(fileFullName)) {
+      if(!skipFiles.includes(fileFullName)) {
         const fileBaseNme = path.basename(fileFullName, '.js');
         const filePath = `${dirPath}/${fileFullName}`;
     
-        if(!EXT_FILTER.length) {
+        if(!extFilter.length) {
           return filesToExport[fileBaseNme] = require(`${filePath}`);
         }
     
-        if(EXT_FILTER.includes(path.extname(fileFullName))) {
+        if(extFilter.includes(path.extname(fileFullName))) {
           return filesToExport[fileBaseNme] = require(`${filePath}`);
         }
       }
