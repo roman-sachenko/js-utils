@@ -3,6 +3,10 @@
 Converts Json Object to Dot Notation Object 
 
 ```javascript
+/**
+ * Converts Json Object to Dot Notation Object including embedded arrays
+ * @param {Object} json - json object
+ */
 const convertWithArray = (json) => {
   
   const result = {};
@@ -37,10 +41,15 @@ const convertWithArray = (json) => {
 
   
   
+/**
+ * Converts Json Object to Dot Notation Object without embedded arrays
+ * Everything inside arrays will not be converted
+ * @param {Object} json - json object
+ */
 const convertWithoutArray = (json) => {
   
   const result = {};
-  
+
   const mapRecursively = (obj, current) => {
     for (let key in obj) {
       const value = obj[key];
