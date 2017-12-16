@@ -7,23 +7,24 @@
 
 ```javascript
 
-const path = require('path');
-const normalizedPath = path.join(__dirname);
-const SKIP_FILES = [ 'index.js'];
+const filesToExport = {};
 
-
-let filesToExport = {};
-
-require("fs").readdirSync(normalizedPath).forEach((fileFullName) => {
-  
+require('fs').readdirSync(dirPath).forEach((fileFullName) => {
+      
   if(!SKIP_FILES.includes(fileFullName)) {
     const fileBaseNme = path.basename(fileFullName, '.js');
-    filesToExport[fileBaseNme] = require(`./${fileFullName}`);
+    const filePath = `${dirPath}/${fileFullName}`;
+      
+    if(!EXT_FILTER.length) {
+      return filesToExport[fileBaseNme] = require(`${filePath}`);
+    }
+      
+    if(EXT_FILTER.includes(path.extname(fileFullName))) {
+      return filesToExport[fileBaseNme] = require(`${filePath}`);
+    }
   }
-
+    
 });
 
-module.exports = filesToExport;
-
-
+return filesToExport;
 ```
