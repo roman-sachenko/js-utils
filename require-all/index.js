@@ -15,7 +15,7 @@ const requireAllFromDir = (dirPath, options) => {
   require('fs').readdirSync(dirPath).forEach((fileFullName) => {
         
     if(!skipFiles.includes(fileFullName)) {
-      const fileBaseNme = path.basename(fileFullName, '.js');
+      const fileBaseNme = path.basename(fileFullName, path.extname(fileFullName));
       const filePath = `${dirPath}/${fileFullName}`;
       
       if(!extFilter.length) {

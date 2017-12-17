@@ -14,7 +14,7 @@ const { convertWithArray, convertWithoutArray } = require('../../index');
         }
       ] 
     }
-  }
+  } 
   
   const resultWithArray = convertWithArray(jsonObject);
   const resultWithoutArray = convertWithoutArray(jsonObject);
